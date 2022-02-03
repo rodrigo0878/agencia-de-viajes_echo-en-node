@@ -14,6 +14,9 @@ import router from './routes/index.js';
 //conectando ala base de datos
 import db from './config/db.js';
 
+import dotenv from 'dotenv'
+dotenv.config({path: '.env'})
+
 
 
 
@@ -39,7 +42,7 @@ db.authenticate()
 //definir puerto
 
 //  --3
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 
 
 //paso 2, agregamos el Router()
@@ -111,13 +114,16 @@ app.use(function(req, res, next) {
 });
 
 
+//creamos le host que cambiara heroku
+const host = process.env.HOST || '0.0.0.0';
+
 
 // sintaxis coman js
 
 //vemos en que puerto esta escuchando el servidor de express
 
 //---4
-app.listen( port, ()=>{
+app.listen( port, host, ()=>{
     console.log(`el servisor esta funcionando en el puerto ${port}`)
 })
 
